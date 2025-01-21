@@ -2,10 +2,179 @@
 import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import UserTable from "../components/UserTable.vue";
+import videoSrc from "../assets/video_bg.mp4";
+import qlogo from "../assets/q_logo.png";
+import buttonimg from "../assets/button_neu.png";
+import logo_full from "../assets/images/quality-magazine-logo.png";
 ---
 
 <Layout>
-	<div class="container mx-auto">
-		<UserTable client:load />
-	</div>
+	<section>
+		<!-- Preloader -->
+		<div
+			id="preloader"
+			class="fixed top-0 left-0 w-full h-screen bg-black flex justify-center items-center z-50 transition-opacity duration-500">
+			<div
+				class="w-12 h-12 border-4 border-gray-700 border-t-white rounded-full animate-spin">
+			</div>
+		</div>
+
+		<div class="m-0 p-0 box-border w-full min-h-screen relative">
+			<!-- Video Container -->
+			<div
+				class="fixed top-0 left-0 w-full h-screen -z-10 overflow-hidden">
+				<video
+					id="backgroundVideo"
+					class="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-cover opacity-0 transition-opacity duration-500"
+					autoplay
+					muted
+					loop
+					playsinline>
+					<source src={videoSrc} type="video/mp4" />
+					Ihr Browser unterstützt keine HTML5 Videos.
+				</video>
+			</div>
+
+			<!-- Overlay -->
+			<div class="fixed top-0 left-0 w-full h-screen -z-10 bg-black/50">
+			</div>
+
+			<!-- Content -->
+			<div
+				class="relative h-screen flex flex-col items-center justify-center px-4">
+				<!-- Logo in top right corner -->
+				<img
+					src={buttonimg.src}
+					alt="Quality Logo"
+					class="absolute top-4 right-4 w-24 h-auto"
+				/>
+
+				<!-- Centered Q Logo -->
+				<div class="mb-12">
+					<img src={qlogo.src} alt="Q Logo" class="w-32 h-auto" />
+				</div>
+
+				<!-- Buttons -->
+				<div class="flex flex-col gap-4 w-full max-w-xl mx-auto">
+					<a
+						href="#"
+						class="w-full bg-white py-4 text-black text-center font-medium hover:bg-gray-100 transition-colors">
+						Kaufe Deine Quality Print<br />
+						inkl. Digital Vollversion
+					</a>
+
+					<a
+						href="#"
+						class="w-full bg-white py-4 text-black text-center font-medium hover:bg-gray-100 transition-colors">
+						Digital-Vollversion lesen!
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="py-16 px-4 bg-white">
+		<div class="max-w-4xl mx-auto">
+			<!-- Überschrift -->
+			<div class="text-center mb-12">
+				<img
+					src={logo_full.src}
+					alt="Quality Magazine"
+					class="mx-auto mb-8 w-64"
+				/>
+				<h1 class="text-2xl font-medium mb-2">
+					Deine Quality-Magazine print Ausgabe erhalten
+				</h1>
+			</div>
+
+			<!-- Optionen Grid -->
+			<div class="flex flex-col md:flex-row gap-8 justify-center">
+				<!-- Option 1: Einzelausgabe -->
+				<div class="flex-1 max-w-sm">
+					<div class="flex items-center mb-4">
+						<input
+							type="radio"
+							id="einzelausgabe"
+							name="ausgabe"
+							class="mr-2"
+							checked
+						/>
+						<label for="einzelausgabe">Als Einzelausgabe</label>
+					</div>
+					<img
+						src={qlogo.src}
+						alt="Switch - Ausgabe 83"
+						class="w-full mb-2"
+					/>
+					<div class="text-sm">
+						<p class="font-bold">Switch - Ausgabe 83</p>
+						<p>11,50 €</p>
+						<p class="text-gray-600">inkl. 19% MwSt.</p>
+					</div>
+				</div>
+
+				<!-- Option 2: Miniabo -->
+				<div class="flex-1 max-w-sm">
+					<div class="flex items-center mb-4">
+						<input
+							type="radio"
+							id="miniabo"
+							name="ausgabe"
+							class="mr-2"
+						/>
+						<label for="miniabo">Als Miniabo</label>
+					</div>
+					<img
+						src={qlogo.src}
+						alt="Switch + 5 Folgeausgaben"
+						class="w-full mb-2"
+					/>
+					<div class="text-sm">
+						<p class="font-bold">Switch + 5 Folgeausgaben</p>
+						<p>53,40 €</p>
+						<p class="text-gray-600">inkl. 19% MwSt.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Mengenwähler und Preis -->
+			<div class="flex justify-center items-center gap-4 mt-8">
+				<button class="px-3 py-1 border">-</button>
+				<input type="number" value="1" class="w-16 text-center" />
+				<button class="px-3 py-1 border">+</button>
+				<p class="ml-8">
+					<span class="text-xl font-bold">11,50 €</span>
+					<span class="text-sm text-gray-600">inkl. 19% MwSt.</span>
+				</p>
+			</div>
+		</div>
+	</section>
+	<script>
+		// Der Script-Teil bleibt unverändert
+		document.addEventListener("DOMContentLoaded", function () {
+			const video = document.getElementById("backgroundVideo");
+			const preloader = document.getElementById("preloader");
+			let isVideoLoaded = false;
+			let isDomLoaded = true;
+
+			function hidePreloader() {
+				if (isVideoLoaded && isDomLoaded) {
+					preloader.classList.add("opacity-0", "pointer-events-none");
+					video.classList.add("opacity-100");
+				}
+			}
+
+			video.addEventListener("loadeddata", function () {
+				isVideoLoaded = true;
+				hidePreloader();
+			});
+
+			setTimeout(function () {
+				if (!isVideoLoaded) {
+					isVideoLoaded = true;
+					hidePreloader();
+				}
+			}, 5000);
+		});
+	</script>
 </Layout>
