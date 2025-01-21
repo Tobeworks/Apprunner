@@ -6,6 +6,7 @@ import UserTable from "../components/UserTable.vue";
 import qlogo from "../assets/q_logo.png";
 import buttonimg from "../assets/button_neu.png";
 import logo_full from "../assets/images/quality-magazine-logo.png";
+import thumbnail from "../assets/images/thumbnail-switch.jpg";
 ---
 
 <Layout>
@@ -105,7 +106,7 @@ import logo_full from "../assets/images/quality-magazine-logo.png";
 						<label for="einzelausgabe">Als Einzelausgabe</label>
 					</div>
 					<img
-						src={qlogo.src}
+						src={thumbnail.src}
 						alt="Switch - Ausgabe 83"
 						class="w-full mb-2"
 					/>
@@ -128,7 +129,7 @@ import logo_full from "../assets/images/quality-magazine-logo.png";
 						<label for="miniabo">Als Miniabo</label>
 					</div>
 					<img
-						src={qlogo.src}
+						src={thumbnail.src}
 						alt="Switch + 5 Folgeausgaben"
 						class="w-full mb-2"
 					/>
@@ -150,6 +151,74 @@ import logo_full from "../assets/images/quality-magazine-logo.png";
 					<span class="text-sm text-gray-600">inkl. 19% MwSt.</span>
 				</p>
 			</div>
+
+			<!-- Formular -->
+			<form class="max-w-xl mx-auto space-y-4">
+				<!-- Auswahl Dropdown -->
+				<select class="w-full p-2 border rounded">
+					<option>Auswahl</option>
+				</select>
+
+				<!-- Persönliche Daten -->
+				<input
+					type="text"
+					placeholder="Vorname"
+					class="w-full p-2 border rounded"
+				/>
+				<input
+					type="text"
+					placeholder="Nachname"
+					class="w-full p-2 border rounded"
+				/>
+				<input
+					type="email"
+					placeholder="E-Mail"
+					class="w-full p-2 border rounded"
+				/>
+
+				<!-- Adresse -->
+				<input
+					type="text"
+					placeholder="Strasse"
+					class="w-full p-2 border rounded"
+				/>
+				<div class="grid grid-cols-2 gap-4">
+					<input
+						type="text"
+						placeholder="PLZ"
+						class="p-2 border rounded"
+					/>
+					<input
+						type="text"
+						placeholder="Stadt"
+						class="p-2 border rounded"
+					/>
+				</div>
+
+				<!-- Land Dropdown -->
+				<select class="w-full p-2 border rounded">
+					<option>Belgien</option>
+				</select>
+
+				<!-- Checkbox für AGB -->
+				<div class="flex items-center gap-2">
+					<input type="checkbox" id="agb" class="rounded" />
+					<label for="agb" class="text-sm">
+						Ich habe die <a href="#" class="underline">AGB's</a> und
+						<a href="#" class="underline">Datenschutzerklärung</a> gelesen
+						und akzeptiere diese
+					</label>
+				</div>
+
+				<!-- Submit Button -->
+				<div class="text-right">
+					<button
+						type="submit"
+						class="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition-colors">
+						Weiter zur Bezahlung
+					</button>
+				</div>
+			</form>
 		</div>
 	</section>
 	<script>
