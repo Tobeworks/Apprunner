@@ -2,7 +2,7 @@
 import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import UserTable from "../components/UserTable.vue";
-import videoSrc from "../assets/video_bg.mp4";
+//import videoSrc from "../assets/video_bg.mp4";
 import qlogo from "../assets/q_logo.png";
 import buttonimg from "../assets/button_neu.png";
 import logo_full from "../assets/images/quality-magazine-logo.png";
@@ -30,7 +30,10 @@ import logo_full from "../assets/images/quality-magazine-logo.png";
 					muted
 					loop
 					playsinline>
-					<source src={videoSrc} type="video/mp4" />
+					<source
+						src="https://covercard.quality-magazine.ch/output_smaller.mp4"
+						type="video/mp4"
+					/>
 					Ihr Browser unterstützt keine HTML5 Videos.
 				</video>
 			</div>
