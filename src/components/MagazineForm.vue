@@ -5,14 +5,14 @@ import axios from 'axios';
 
 
 const formData = ref({
-    orderType: 'einzelausgabe',
+    order_type: 'einzelausgabe',
     quantity: 1,
     selection: '',
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     street: '',
-    zipCode: '',
+    zip_code: '',
     city: '',
     country: 'DE',
     agreeToTerms: false
@@ -26,7 +26,7 @@ const SUBSCRIPTION_PRICE = 53.40;
 
 
 const totalPrice = computed(() => {
-    const basePrice = formData.value.orderType === 'einzelausgabe'
+    const basePrice = formData.value.order_type === 'einzelausgabe'
         ? SINGLE_PRICE
         : SUBSCRIPTION_PRICE;
     return (basePrice * formData.value.quantity).toFixed(2);
@@ -47,12 +47,12 @@ const decreaseQuantity = () => {
 const validateForm = () => {
     errors.value = {};
 
-    if (!formData.value.firstName.trim()) {
-        errors.value.firstName = 'Vorname ist erforderlich';
+    if (!formData.value.first_name.trim()) {
+        errors.value.first_name = 'Vorname ist erforderlich';
     }
 
-    if (!formData.value.lastName.trim()) {
-        errors.value.lastName = 'Nachname ist erforderlich';
+    if (!formData.value.last_name.trim()) {
+        errors.value.last_name = 'Nachname ist erforderlich';
     }
 
     if (!formData.value.email.trim()) {
@@ -65,8 +65,8 @@ const validateForm = () => {
         errors.value.street = 'Straße ist erforderlich';
     }
 
-    if (!formData.value.zipCode.trim()) {
-        errors.value.zipCode = 'PLZ ist erforderlich';
+    if (!formData.value.zip_code.trim()) {
+        errors.value.zip_code = 'PLZ ist erforderlich';
     }
 
     if (!formData.value.city.trim()) {
@@ -87,28 +87,62 @@ const isValidEmail = (email) => {
 
 const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (validateForm()) {
         try {
+            // Calculate total price
+            const basePrice = formData.value.order_type === 'einzelausgabe' ? 11.50 : 53.40;
+            const totalPrice = basePrice * formData.value.quantity;
 
-            console.log('Form submitted:', formData.value);
-            // Emit event to parent component
-            //emit('form-submitted', formData.value);
+            const isDev = import.meta.env.DEV; // will be true in development, false in production
+            const endpoint = isDev
+                ? 'http://localhost:8080/save-customer-order'
+                : 'https://rytjazkk4r.eu-central-1.awsapprunner.com/save-customer-order'; 
+
+            const response = await axios.post(endpoint, {
+                order_type: formData.value.order_type,       // camelCase for server validation
+                quantity: formData.value.quantity,
+                first_name: formData.value.first_name,
+                last_name: formData.value.last_name,
+                email: formData.value.email,
+                street: formData.value.street,
+                zip_code: formData.value.zip_code,
+                city: formData.value.city,
+                country: formData.value.country,
+                agreeToTerms: formData.value.agreeToTerms,
+                totalPrice: totalPrice
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.data.status === 'success') {
+                console.log('Order saved successfully:', response.data);
+                alert(`Bestellung erfolgreich aufgegeben!\nBestellnummer: ${response.data.order_id}\nGesamtpreis: ${totalPrice.toFixed(2)} €`);
+            }
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error details:', error.response?.data);
+            let errorMessage = 'Ein Fehler ist aufgetreten';
+
+            if (error.response?.data?.message) {
+                if (error.response.data.message.includes('required field')) {
+                    errorMessage = error.response.data.message;
+                }
+            }
+            alert(errorMessage);
         }
     }
 };
 </script>
 
 <template>
-    <form @submit="handleSubmit" class="max-w-xl mx-auto space-y-4">
+    <form @submit="handleSubmit" class="max-w-xl mx-auto space-y-4" >
         <!-- Order Type Selection with Images -->
         <div class="flex flex-col md:flex-row gap-8 justify-center">
             <!-- Option 1: Einzelausgabe -->
             <div class="flex-1 max-w-sm">
                 <div class="flex items-center mb-4">
-                    <input type="radio" id="einzelausgabe" v-model="formData.orderType" value="einzelausgabe" class="mr-2" />
+                    <input type="radio" id="einzelausgabe" v-model="formData.order_type" value="einzelausgabe" class="mr-2" />
                     <label for="einzelausgabe">Als Einzelausgabe</label>
                 </div>
                 <img src="images/magazines/33.jpg" alt="Switch - Ausgabe 83" class="w-full mb-2" />
@@ -122,7 +156,7 @@ const handleSubmit = async (event) => {
             <!-- Option 2: Miniabo -->
             <div class="flex-1 max-w-sm">
                 <div class="flex items-center mb-4">
-                    <input type="radio" id="miniabo" v-model="formData.orderType" value="miniabo" class="mr-2" />
+                    <input type="radio" id="miniabo" v-model="formData.order_type" value="miniabo" class="mr-2" />
                     <label for="miniabo">Als Miniabo</label>
                 </div>
                 <img src="images/magazines/33.jpg" alt="Switch + 5 Folgeausgaben" class="w-full mb-2" />
@@ -151,7 +185,7 @@ const handleSubmit = async (event) => {
                     <span class="text-xl font-bold">{{ totalPrice }} €</span>
                     <span class="ml-2 text-sm text-gray-600">inkl. 19% MwSt.</span>
                 </p>
-                <p class="text-sm text-gray-500" v-if="formData.orderType === 'miniabo'">
+                <p class="text-sm text-gray-500" v-if="formData.order_type === 'miniabo'">
                     (6 Ausgaben, zahlbar im Voraus)
                 </p>
             </div>
@@ -165,11 +199,11 @@ const handleSubmit = async (event) => {
         </select>
 
         <!-- Personal Information -->
-        <input type="text" v-model="formData.firstName" placeholder="Vorname" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.firstName }" />
-        <span v-if="errors.firstName" class="text-red-500 text-sm">{{ errors.firstName }}</span>
+        <input type="text" v-model="formData.first_name" placeholder="Vorname" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.first_name }" />
+        <span v-if="errors.first_name" class="text-red-500 text-sm">{{ errors.first_name }}</span>
 
-        <input type="text" v-model="formData.lastName" placeholder="Nachname" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.lastName }" />
-        <span v-if="errors.lastName" class="text-red-500 text-sm">{{ errors.lastName }}</span>
+        <input type="text" v-model="formData.last_name" placeholder="Nachname" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.last_name }" />
+        <span v-if="errors.last_name" class="text-red-500 text-sm">{{ errors.last_name }}</span>
 
         <input type="email" v-model="formData.email" placeholder="E-Mail" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.email }" />
         <span v-if="errors.email" class="text-red-500 text-sm">{{ errors.email }}</span>
@@ -180,8 +214,8 @@ const handleSubmit = async (event) => {
 
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <input type="text" v-model="formData.zipCode" placeholder="PLZ" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.zipCode }" />
-                <span v-if="errors.zipCode" class="text-red-500 text-sm">{{ errors.zipCode }}</span>
+                <input type="text" v-model="formData.zip_code" placeholder="PLZ" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.zip_code }" />
+                <span v-if="errors.zip_code" class="text-red-500 text-sm">{{ errors.zip_code }}</span>
             </div>
             <div>
                 <input type="text" v-model="formData.city" placeholder="Stadt" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.city }" />
