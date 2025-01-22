@@ -111,7 +111,7 @@ const handleSubmit = async (event) => {
                     <input type="radio" id="einzelausgabe" v-model="formData.orderType" value="einzelausgabe" class="mr-2" />
                     <label for="einzelausgabe">Als Einzelausgabe</label>
                 </div>
-                <img :src="thumbnailSrc" alt="Switch - Ausgabe 83" class="w-full mb-2" />
+                <img src="images/magazines/33.jpg" alt="Switch - Ausgabe 83" class="w-full mb-2" />
                 <div class="text-sm">
                     <p class="font-bold">Switch - Ausgabe 83</p>
                     <p>11,50 €</p>
@@ -125,7 +125,7 @@ const handleSubmit = async (event) => {
                     <input type="radio" id="miniabo" v-model="formData.orderType" value="miniabo" class="mr-2" />
                     <label for="miniabo">Als Miniabo</label>
                 </div>
-                <img :src="thumbnailSrc" alt="Switch + 5 Folgeausgaben" class="w-full mb-2" />
+                <img src="images/magazines/33.jpg" alt="Switch + 5 Folgeausgaben" class="w-full mb-2" />
                 <div class="text-sm">
                     <p class="font-bold">Switch + 5 Folgeausgaben</p>
                     <p>53,40 €</p>
