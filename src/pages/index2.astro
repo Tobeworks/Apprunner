@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+//import videoSrc from "../assets/video_bg.mp4";
+import Hero from "../components/Hero.astro";
+import logo_full from "../assets/images/quality-magazine-logo.png";
+import MagazineForm from "../components/MagazineForm.vue";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+	<Hero />
+	<section class="py-16 px-4 bg-white" id="buy">
+		<div class="max-w-4xl mx-auto">
+			<!-- Überschrift -->
+			<div class="text-center mb-12">
+				<img
+					src={logo_full.src}
+					alt="Quality Magazine"
+					class="mx-auto mb-8 w-64"
+				/>
+				<h1 class="text-2xl font-medium mb-2">
+					Deine <b>Quality Magazine</b> Print Ausgabe erhalten
+				</h1>
+			</div>
+
+			<!-- Optionen Grid -->
+			<MagazineForm client:load />
+		</div>
+	</section>
+
+	<Footer />
+</Layout>
