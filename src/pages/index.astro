@@ -1,14 +1,10 @@
 ---
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
-import UserTable from "../components/UserTable.vue";
 //import videoSrc from "../assets/video_bg.mp4";
-import qlogo from "../assets/q_logo.png";
-import buttonimg from "../assets/button_neu.png";
 import Hero from "../components/Hero.astro";
 import logo_full from "../assets/images/quality-magazine-logo.png";
-import thumbnail from "../assets/images/thumbnail-switch.jpg";
 import MagazineForm from "../components/MagazineForm.vue";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
@@ -23,7 +19,7 @@ import MagazineForm from "../components/MagazineForm.vue";
 					class="mx-auto mb-8 w-64"
 				/>
 				<h1 class="text-2xl font-medium mb-2">
-					Deine Quality-Magazine print Ausgabe erhalten
+					Deine <b>Quality Magazine</b> Print Ausgabe erhalten
 				</h1>
 			</div>
 
@@ -32,5 +28,5 @@ import MagazineForm from "../components/MagazineForm.vue";
 		</div>
 	</section>
 
-	<footer></footer>
+<Footer />
 </Layout>
