@@ -1,8 +1,8 @@
 <!-- MagazineForm.vue -->
 <script setup>
 import { ref, computed } from 'vue';
-// Import images
-const thumbnailSrc = '/src/assets/images/thumbnail-switch.jpg';
+import axios from 'axios';
+
 
 const formData = ref({
     orderType: 'einzelausgabe',
@@ -14,7 +14,7 @@ const formData = ref({
     street: '',
     zipCode: '',
     city: '',
-    country: 'Belgien',
+    country: 'DE',
     agreeToTerms: false
 });
 
@@ -24,7 +24,7 @@ const errors = ref({});
 const SINGLE_PRICE = 11.50;
 const SUBSCRIPTION_PRICE = 53.40;
 
-// Computed total price based on selection and quantity
+
 const totalPrice = computed(() => {
     const basePrice = formData.value.orderType === 'einzelausgabe'
         ? SINGLE_PRICE
@@ -90,10 +90,10 @@ const handleSubmit = async (event) => {
 
     if (validateForm()) {
         try {
-            // Here you would typically send the data to your backend
+
             console.log('Form submitted:', formData.value);
             // Emit event to parent component
-            emit('form-submitted', formData.value);
+            //emit('form-submitted', formData.value);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -160,7 +160,8 @@ const handleSubmit = async (event) => {
         <!-- Selection Dropdown -->
         <select v-model="formData.selection" class="w-full p-2 border rounded" :class="{ 'border-red-500': errors.selection }">
             <option value="">Auswahl</option>
-            <!-- Add your options here -->
+            <option value="Frau">Frau</option>
+            <option value="Herr">Herr</option>
         </select>
 
         <!-- Personal Information -->
@@ -190,8 +191,16 @@ const handleSubmit = async (event) => {
 
         <!-- Country Selection -->
         <select v-model="formData.country" class="w-full p-2 border rounded">
-            <option value="Belgien">Belgien</option>
-            <!-- Add more countries as needed -->
+            <option value="BE">Belgien</option>
+            <option value="DE" selected>Deutschland</option>
+            <option value="DK">Dänemark</option>
+            <option value="LU">Luxenburg</option>
+            <option value="ES">Spanien</option>
+            <option value="GB">Verein. Königreich</option>
+            <option value="IT">Italien</option>
+            <option value="CH">Schweiz</option>
+            <option value="NL">Niederlande</option>
+            <option value="AUT">Österreich</option>
         </select>
 
         <!-- Terms Agreement -->

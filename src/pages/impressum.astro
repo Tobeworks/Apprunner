@@ -1,0 +1,153 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import logo_full from "../assets/images/quality-magazine-logo.png";
+import MagazineForm from "../components/MagazineForm.vue";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout>
+    <main class="max-w-3xl mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold mb-8">Impressum</h1>
+
+        <!-- Publishing House Section -->
+        <section class="mb-12">
+            <h2 class="text-xl font-semibold mb-4">Publishing House</h2>
+            <div class="space-y-2">
+                <p class="font-medium">Global Q Media AG</p>
+                <p>Tiefenackerstraße 49</p>
+                <p>CH-9450 Altstätten</p>
+                <p>CH-UID-Number: CH-470.223.530</p>
+                <p>Handelsregistergericht Zürich</p>
+                <p>Handelsregisternummer/CH ID: CH02030423817</p>
+                <p>EHRA-ID: 1234936</p>
+                <p>Handelsregisteramt des Kanton ST.Gallen</p>
+                <div class="mt-4">
+                    <p>Telefon: +41 71 575 68 03</p>
+                    <p>Fax: +41 71 757 50 21</p>
+                </div>
+                <div class="mt-4">
+                    <p>info@globalqmedia.ch</p>
+                    <p>www.globalqmedia.ch</p>
+                    <p class="mt-2">
+                        <span class="font-medium"
+                            >Chairman / Verwaltungsrat</span
+                        ><br />
+                        Matthias K. H. Arens
+                    </p>
+                </div>
+            </div>
+            <p class="mt-6 text-sm italic">
+                Die Inhaberrechte des Titels „Quality Magazine" anno 1957 liegen
+                ausschließlich bei der Global Q Media AG
+            </p>
+        </section>
+
+        <!-- Editorial Section -->
+        <section class="mb-12">
+            <h2 class="text-xl font-semibold mb-4">
+                Editorial International Content
+            </h2>
+            <div class="space-y-6">
+                <div>
+                    <p class="font-medium">Editor in Chief</p>
+                    <p>Susanne Filter</p>
+                </div>
+
+                <div>
+                    <p class="font-medium">
+                        Quality Magazine Redaktion International
+                    </p>
+                    <p>Kaiserin-Augusta-Allee 101</p>
+                    <p>D-10553 Berlin</p>
+                    <div class="mt-2">
+                        <p>Telefon: +49 30 403 67 45 50</p>
+                        <p>Fax: +49 30 403 6745 51</p>
+                    </div>
+                    <div class="mt-2">
+                        <p>info@quality-magazine.de</p>
+                        <p>www.quality-magazine.ch</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- International Offices Section -->
+        <section class="mb-12">
+            <h2 class="text-xl font-semibold mb-4">International Offices</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-medium mb-2">Head Office</h3>
+                    <p>5 Abchurch Lane</p>
+                    <p>London EC4N 7BW</p>
+                    <p>Vereinigtes Königreich</p>
+                    <p class="mt-2">info@qcontentstore.co.uk</p>
+                </div>
+
+                <div>
+                    <h3 class="font-medium mb-2">Editorial Office New York</h3>
+                    <p>Georgia Benjamin</p>
+                    <p>Apartment 4C</p>
+                    <p>132 N 5th Street</p>
+                    <p>Brooklyn, New York 11249, USA</p>
+                    <p class="mt-2">ny@quality-magazine.ch</p>
+                </div>
+
+                <div>
+                    <h3 class="font-medium mb-2">Editorial Office Mexico</h3>
+                    <p>Adolfo Ayuso Audry</p>
+                    <p>Mz. III Calle A Nr. 35 col. Educación</p>
+                    <p>C. P. 04400, México D. F., Mexico</p>
+                    <p class="mt-2">ayuso-audry@quality-magazine.ch</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Sections -->
+        <section class="mb-12 grid md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-xl font-semibold mb-4">
+                    Marketing & Sales International
+                </h2>
+                <p>Global Q Media AG</p>
+                <p>willing@globalqmedia.ch</p>
+                <div class="mt-2">
+                    <p>Telefon: +49 30 403 67 45 50</p>
+                    <p>Fax: +49 30 403 6745 51</p>
+                </div>
+                <p class="mt-2">info@globalqmedia.ch</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-semibold mb-4">Subscription Service</h2>
+                <p class="font-medium">Quality Subscription Service</p>
+                <p>Telefon: + 49 30 40 36 74 55 0</p>
+                <p>Fax: + 49 30 40 36 74 55 1</p>
+                <p class="mt-2">abo@quality-magazine.de</p>
+            </div>
+        </section>
+
+        <!-- Finance Section -->
+        <section class="mb-12">
+            <h2 class="text-xl font-semibold mb-4">Finance/Controlling</h2>
+            <p>BGW Treuhand AG</p>
+            <p>Tiefenackerstraße 49</p>
+            <p>CH-9450 Altstätten SG</p>
+            <p>info@bgw-treuhand.ch</p>
+        </section>
+
+        <!-- Disclaimer Section -->
+        <section class="mb-12">
+            <h2 class="text-xl font-semibold mb-4">Disclaimer</h2>
+            <p class="text-sm text-gray-700 leading-relaxed">
+                Responsible for the editorial content in the purpose of the
+                press law: Susanne Filter. All rights reserved. The magazine as
+                well as every article and image included are protected by
+                copyright. The export and distribution overseas are only
+                permitted with prior approval. No liability assumed for
+                undemanded text and pictorial material.
+            </p>
+        </section>
+    </main>
+    <Footer />
+</Layout>
